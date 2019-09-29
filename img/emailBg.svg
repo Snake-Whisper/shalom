@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="359.25mm" height="205.12mm" version="1.1" viewBox="0 0 1272.924 726.79129" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="d" x1="27.667" x2="-294.08" y1="543.16" y2="547.48" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#4fc3f7" offset="0"/>
+   <stop stop-color="#4fc3f7" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="e" x1="10.528" x2="-234.08" y1="534.52" y2="542.08" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#4fc3f7" offset="0"/>
+   <stop stop-color="#4fc3f7" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="f" x1="16.779" x2="-155.33" y1="616.62" y2="617.7" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#4fc3f7" offset="0"/>
+   <stop stop-color="#4fc3f7" stop-opacity="0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(309.49 -135.22)">
+  <rect x="-309.49" y="135.22" width="1272.9" height="726.79" ry="0" color="#000000" color-rendering="auto" fill="#4fc3f7" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <path d="m698.01 135.22-792.69 726.79h1058.1v-726.79h-265.42z" fill="#29b6f6" fill-rule="evenodd"/>
+  <path d="m-309.49 240.16v516.92h1272.9v-516.92h-1272.9z" color="#000000" color-rendering="auto" fill="#fff" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <rect transform="matrix(1 0 .35449 .93506 0 0)" x="64.38" y="393.86" width="464.66" height="278.76" ry="14.968" color="#000000" color-rendering="auto" fill="#81d4fa" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <path d="m238.3 386.39 249.01 112.55c3.3723 1.5242 5.7404 5.7103 5.3096 9.3859l-1.1501 9.8144c-0.43073 3.6756-3.4923 5.4075-6.8646 3.8833l-238.62-107.85c-6.0121-3.4995-8.7134-5.7613-14.548-23.896 0.43073-3.6756 3.4923-5.4075 6.8646-3.8833z" color="#000000" color-rendering="auto" fill="#29b6f6" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <path d="m643.48 388.02-168.94 108.93c-3.9154 2.5247-4.7629 7.5162-1.9004 11.192l7.6436 9.8144c2.8626 3.6756 8.3192 4.6021 12.235 2.0774l168.94-108.93c3.9154-2.5247 3.4523-6.7991 1.9004-11.192l-4.953-14.019c-1.552-4.3927-11.01-0.39792-14.925 2.1268z" color="#000000" color-rendering="auto" fill="#29b6f6" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <rect transform="matrix(1 0 .35449 .93506 0 0)" x="-271.77" y="450.43" width="311.17" height="35.718" ry="10.024" color="#000000" color-rendering="auto" fill="url(#d)" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <rect transform="matrix(1 0 .35449 .93506 0 0)" x="-190.38" y="518.77" width="227.09" height="35.718" ry="10.024" color="#000000" color-rendering="auto" fill="url(#e)" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  <rect transform="matrix(1 0 .35449 .93506 0 0)" x="-112.9" y="594.31" width="148.39" height="35.718" ry="10.024" color="#000000" color-rendering="auto" fill="url(#f)" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+ </g>
+</svg>
