@@ -13,7 +13,7 @@ class aliasManagerMySQL implements iAliasManager
 	public $conn;
 	function __construct()
 	{
-		$config = include ("config.php");
+		$config = require ("../config.php");
 		try {
             $this->conn = new PDO("mysql:host="
 						. $config["aliases"]["mysql"]["host"]
@@ -22,7 +22,6 @@ class aliasManagerMySQL implements iAliasManager
 						$config["aliases"]["mysql"]["passphrase"]);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
-				//TODO: test line break
 
         catch (PDOException $e) {
             echo "Es ga einen Datenbankzugriffsfehler!!!";
@@ -80,8 +79,8 @@ class aliasManagerMySQL implements iAliasManager
 		destination_username = ? AND
 		source_domain = ? AND
 		source_username = ?");
-		$statement->execute(array_merge($this->splitEmailAddr($email),
-																		$this->splitEmailAddr($distributor)));
+		$statement->execute(
+			array_merge($this->splitEmailAddr($email), $this->splitEmailAddr($distributor)));
 	}
 
 	function lsAlias($distributor, $handler)
@@ -129,5 +128,4 @@ class aliasManagerMySQL implements iAliasManager
 		}
 	}
 }
-
 ?>

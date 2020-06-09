@@ -4,7 +4,7 @@ class userManager
     public $conn;
     function __construct()
     {
-    $config = include ("config.php");
+    $config = require ("../config.php");
         try {
             $this->conn = new PDO("mysql:host=" . $config["user"]["mysql"]["host"] . ";dbname=" . $config["user"]["mysql"]["databasename"], $config["user"]["mysql"]["username"], $config["user"]["mysql"]["passphrase"]);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,11 +16,16 @@ class userManager
             die();
         }
     }
+
+    function getSchema () {
+        ob_start();
+        require("schema.sql");
+        return ob_get_clean();
+    }
     
     function initDB() {
-        $this->conn->query("DROP TABLE IF EXISTS dists");
-        $this->conn->query("CREATE TABLE dists (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50) UNIQUE KEY NOT NULL, pwd CHAR(41), email VARCHAR(250) UNIQUE KEY NOT NULL, visibleEmail BOOLEAN DEFAULT FALSE NOT NULL)");
-
+        $schema = $this->getSchema();
+        $this->conn->exec($schema);
     }
     
     function addMailUser ($name, $pwd, $email, $visibleEmail = 0) {
@@ -43,5 +48,9 @@ class userManager
         $statement->execute(array($nameOrEmail, $nameOrEmail, $pwd));
         return $statement->fetchColumn() > 0;
     }
+
 }
+
+$v = new userManager();
+$v->initDB();
 ?>
