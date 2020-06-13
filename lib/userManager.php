@@ -1,6 +1,6 @@
 <?php
 
-require_once "TokenSender.php";
+require_once "TokenManager.php";
 
 /*
 - addUser (token)
@@ -18,8 +18,6 @@ class userManager
     $this->config = require ("../config.php");
         try {
             $this->conn = new PDO("mysql:host=" . $this->config["user"]["mysql"]["host"] . ";dbname=" . $this->config["user"]["mysql"]["databasename"], $this->config["user"]["mysql"]["username"], $this->config["user"]["mysql"]["passphrase"]);
-            $this->redis = new Redis();
-            $this->redis->connect($this->config["redis"]["host"], $this->config["redis"]["port"]);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             
@@ -41,22 +39,15 @@ class userManager
         $this->conn->exec($schema);
     }
 
-    function struuid($entropy) {
-        $s=uniqid("",$entropy);
-        $num= hexdec(str_replace(".","",(string)$s));
-        $index = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $base= strlen($index);
-        $out = '';
-        for($t = floor(log10($num) / log10($base)); $t >= 0; $t--) {
-            $a = floor($num / pow($base,$t));
-            $out = $out.substr($index,$a,1);
-            $num = $num-($a*pow($base,$t));
+    function addUser($email, $pwd) {
+        try {
+            $sql = $this->conn->prepare("INSERT INTO user (email, pwd) VALUES (?, ?)");
+            $sql->execute(array($email, $pwd));
+            echo "Successfull registered $email.";
+        } catch ( PROException $e) {
+            echo $e;
         }
-        return $out;
-    }
-
-    function addUser($token) {
-        //$sql = $this->conn->prepare("INSERT INTO user (email, pwd) VALUES (?, ?)");
+        echo "There were some errors during registration.";
     }
 
     function register($email, $pwd) {
@@ -66,10 +57,9 @@ class userManager
             echo "user already exists";
             return;
         }
-        $load = json_encode (["email" => $email, "pwd" => password_hash($pwd, PASSWORD_DEFAULT)]);
-        $uuid = $this->struuid(true);
-        $this->redis->set($uuid, $load, $this->config["redis"]["timeout"]);
-        echo "send mail to $email with code $uuid";
+        $tokenSender = new TokenSender();
+        $tokenSender->sendRegisterToken($email, $pwd);
+        echo "send mail to $email";
     }
 
 }
