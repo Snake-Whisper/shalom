@@ -1,4 +1,8 @@
 <?php
+
+require_once "TokenSender.php";
+
+
 class userManager
 {
     public $conn;
