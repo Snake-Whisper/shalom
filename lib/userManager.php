@@ -15,7 +15,8 @@ class userManager
     public $conn;
     function __construct()
     {
-    $this->config = require ("../config.php");
+    define('__ROOT__', dirname(dirname(__FILE__)));
+    $this->config = require (__ROOT__.'/config.php');
         try {
             $this->conn = new PDO("mysql:host=" . $this->config["user"]["mysql"]["host"] . ";dbname=" . $this->config["user"]["mysql"]["databasename"], $this->config["user"]["mysql"]["username"], $this->config["user"]["mysql"]["passphrase"]);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,8 +47,8 @@ class userManager
             echo "Successfull registered $email.";
         } catch ( PROException $e) {
             echo $e;
+            echo "There were some errors during registration.";
         }
-        echo "There were some errors during registration.";
     }
 
     function register($email, $pwd) {
@@ -61,11 +62,6 @@ class userManager
         $tokenSender->sendRegisterToken($email, $pwd);
         echo "send mail to $email";
     }
-
 }
-
-$v = new userManager();
-$v->initDB();
-$v->register("verf@web-utils.eu", "password");
 
 ?>

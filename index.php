@@ -4,8 +4,7 @@
     </head>
     <body>
         <?php
-            echo "not implemented yet";
-            
+            echo "not implemented yet.";            
         ?>
     </body>
 </html>

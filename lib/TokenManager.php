@@ -7,7 +7,8 @@ class TokenSender
 {
     function __construct ()
     {
-        $this->config = require ("../config.php");
+        define('__ROOT__', dirname(dirname(__FILE__)));
+        $this->config = require (__ROOT__.'/config.php');
         $this->smtp = Mail::factory('smtp', array ('host' => $this->config['smtp']['host'],
                                     'port' => $this->config['smtp']['port'],
                                     'auth' => $this->config['smtp']['auth'],
@@ -47,8 +48,13 @@ class TokenSender
                             'Subject' => "Please verify your registration");
         $load = json_encode (["email" => $email, "pwd" => password_hash($pwd, PASSWORD_DEFAULT)]);
         $token = $this->struuid();
+        echo $token . "\n";
+        echo $load . "\n";
+        echo $this->config["redis"]["timeout"] . "\n";
+        $this->redis->set("hi", "hallo", 10);
+
         $this->redis->set($token, $load, $this->config["redis"]["timeout"]);
-        $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/register.php?token=$token";
+        $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://". $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ."?token=$token";
         $mail = require ("templates/register.template");
         $ret = $this->smtp->send($email, $headers, $mail);
         $this->chkError($ret);
@@ -78,26 +84,27 @@ class TokenSender
 class TokenReciever {
     function __construct ()
     {
-        $this->config = require ("../config.php");
+        define('__ROOT__', dirname(dirname(__FILE__)));
+        $this->config = require (__ROOT__.'/config.php');
         $this->redis = new Redis();
         $this->redis->connect($this->config["redis"]["host"], $this->config["redis"]["port"]);
     }
 
-    function recvRegisterToken ()
+    function recvRegisterToken ($token)
     {
-        $load = $this->redis->get($_GET["token"]);
+        $load = $this->redis->get($token);
         if (! $load) {
             echo "token unknown or already used";
             die();
         }
-        $user = json_decode($load);
+        $user = json_decode($load, true);
         $usermanager = new UserManager();
         if (! (isset($user["pwd"]) && isset($user["email"]))) {
             echo "token references bad values";
             die();
         }
         $usermanager->addUser($user["email"], $user["pwd"]);
-        $this->redis->delete($_GET["token"]);
+        $this->redis->delete($token);
 
     }
 }
